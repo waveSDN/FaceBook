@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101a34">
+    <title>WIS | وكيل المبيعات الذكي</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="WIS dashboard">
+        <span class="brand-mark">W</span>
+        <span><strong>WIS</strong><small>وكيل المبيعات الذكي</small></span>
+      </a>
+      <div class="topbar-right">
+        <span id="modeBadge" class="badge muted">جارٍ الاتصال...</span>
+        <button id="refreshButton" class="button button-quiet" type="button">تحديث</button>
+      </div>
+    </header>
+
+    <main class="page">
+      <section id="loginPanel" class="login-panel" hidden>
+        <div class="eyebrow">لوحة داخلية</div>
+        <h1>تسجيل الدخول</h1>
+        <p>أدخل رمز لوحة التحكم المحدد في <code>WIS_ADMIN_TOKEN</code>.</p>
+        <form id="loginForm" class="inline-form">
+          <label class="sr-only" for="adminToken">رمز لوحة التحكم</label>
+          <input id="adminToken" type="password" autocomplete="current-password" required>
+          <button class="button button-primary" type="submit">دخول</button>
+        </form>
+        <p id="loginError" class="error-message" role="alert"></p>
+      </section>
+
+      <section id="dashboardPanel">
+        <div class="page-heading">
+          <div>
+            <div class="eyebrow">WIS INTELLIGENT SALES AGENT</div>
+            <h1>متابعة المحادثات والفرص</h1>
+            <p class="subtitle">مستشار يفهم احتياج العميل أولاً، ولا يؤهل أو يحوّل دون دليل واضح.</p>
+          </div>
+        </div>
+
+        <section class="integration-panel">
+          <div>
+            <h2>حالة التكاملات</h2>
+            <p>الحالات المعروضة تعكس الإعدادات فقط، لا اتصالاً تم اختباره بالخدمات الخارجية.</p>
+          </div>
+          <div id="integrationBadges" class="integration-badges"></div>
+        </section>
+
+        <section class="metrics" aria-label="مؤشرات المتابعة">
+          <article class="metric-card"><span>المحادثات المفتوحة</span><strong id="metricConversations">—</strong></article>
+          <article class="metric-card"><span>عملاء مؤهلون بالأدلة</span><strong id="metricQualified">—</strong></article>
+          <article class="metric-card"><span>تحتاج تدخلاً بشرياً</span><strong id="metricHuman">—</strong></article>
+          <article class="metric-card"><span>موافقات WhatsApp</span><strong id="metricConsents">—</strong></article>
+        </section>
+
+        <section class="demo-panel">
+          <div>
+            <h2>تجربة محلية</h2>
+            <p>تُحفظ الرسالة في سجل تجريبي محلي، ولا يُرسل رد خارجي.</p>
+          </div>
+          <form id="demoForm" class="demo-form">
+            <label>
+              <span>معرّف تجريبي</span>
+              <input id="demoCustomerId" maxlength="100" value="demo-customer-1">
+            </label>
+            <label class="demo-message">
+              <span>رسالة العميل</span>
+              <input id="demoText" maxlength="4000" required placeholder="اكتب رسالة باللغة العربية أو الإنجليزية">
+            </label>
+            <button class="button button-primary" type="submit">حفظ الرسالة</button>
+          </form>
+        </section>
+
+        <div class="workspace-grid">
+          <section class="panel conversation-panel">
+            <div class="panel-heading">
+              <div><h2>المحادثات والعملاء</h2><p id="conversationCount">لا توجد محادثات بعد</p></div>
+              <button id="clearSelection" class="text-button" type="button">إلغاء التحديد</button>
+            </div>
+            <div id="conversationList" class="conversation-list"></div>
+          </section>
+
+          <section class="panel detail-panel">
+            <div id="conversationDetail" class="empty-state">
+              <span class="empty-icon">↙</span>
+              <h2>اختر محادثة</h2>
+              <p>ستظهر الرسائل والأدلة وسبب التحويل هنا.</p>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel catalog-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>كتالوج خدمات WIS المعتمد</h2>
+              <p>أضف فقط المعلومات التي راجعها فريق WIS. الرد عن خدمة محددة يستخدم النص المعتمد حرفياً.</p>
+            </div>
+            <button id="saveCatalog" class="button button-secondary" type="button">حفظ الكتالوج</button>
+          </div>
+          <label for="catalogJson" class="field-label">JSON: id, topic, language (ar/en), keywords, answer</label>
+          <textarea id="catalogJson" rows="8" spellcheck="false" dir="ltr"></textarea>
+          <p id="catalogStatus" class="status-message" role="status"></p>
+        </section>
+
+        <p id="appError" class="error-message" role="alert"></p>
+      </section>
+    </main>
+    <footer><span>نسخة MVP محلية • لا تدخل بيانات حقيقية قبل مراجعة إعدادات الاستضافة والخصوصية.</span></footer>
+  </body>
+</html>
